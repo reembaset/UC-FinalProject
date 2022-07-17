@@ -9,8 +9,7 @@ public class Player : MonoBehaviour
 {
     Rigidbody rb;
     public GameObject pistolH;
-    public GameObject sniperE;
-    public GameObject pistolN;
+    
     public ParticleSystem psFlare;
     public GameObject cameraOB;
     public int score;
@@ -21,7 +20,7 @@ public class Player : MonoBehaviour
     public int weaponID;
     public float health = 100;
     public Image imageH;
-    public AudioSource bang;
+    //public AudioSource bang;
     public void Awake()
     {
         if (instance == null)
@@ -36,7 +35,7 @@ public class Player : MonoBehaviour
         score = 0;
         psFlare = GetComponentInChildren<ParticleSystem>();
         rb = GetComponent<Rigidbody>();
-        bang = GetComponentInChildren<AudioSource>();
+       // bang = GetComponentInChildren<AudioSource>();
 
         cameraOB = Camera.main.gameObject;
 
@@ -51,14 +50,12 @@ public class Player : MonoBehaviour
         rb.velocity = temp;
         rb.angularVelocity = Vector3.up * Input.GetAxis("Mouse X") * turn;
 
-
-
         RaycastHit rHit;
 
         if (Input.GetButtonDown("Fire1"))
         {
-            bang.pitch = Random.Range(0.5f, 1.5f);
-            bang.Play();
+            //bang.pitch = Random.Range(0.5f, 1.5f);
+           // bang.Play();
             psFlare.Play();
             if (Physics.Raycast(transform.position, transform.forward, out rHit))
             {
@@ -73,20 +70,7 @@ public class Player : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            if (weaponID < 2)
-                weaponID++;
-            else
-                weaponID = 0;
-
-
-            pistolH.SetActive(weaponID == 0);
-            pistolN.SetActive(weaponID == 1);
-            sniperE.SetActive(weaponID == 2);
-
-        }
-
+        
         txtscore.text = "score: " + score;
 
     }
@@ -99,6 +83,7 @@ public class Player : MonoBehaviour
             imageH.fillAmount = health / 100f;
             if (health <= 0)
                 Debug.Log("GAME OVER");
+            
         }
     }
 }
